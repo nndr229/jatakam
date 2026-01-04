@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h4>Jātakam for {{ data.name }}</h4>
+  <ul class="list-group">
+    <li class="list-group-item">Nakshatra: {{ data.nakshatra }}</li>
+    <li class="list-group-item">Nakshatra No: {{ data.nakshatra_no }}</li>
+    <li class="list-group-item">Janma Rasi: {{ data.janma_rasi }}</li>
+  </ul>
+</div>
+{% endblock %}

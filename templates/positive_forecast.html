@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h4>Positive 10-Year Outlook</h4>
+
+  <h5 class="mt-3 text-success">Highly Favorable Periods</h5>
+  <ul class="list-group">
+    {% for p, y in positive %}
+    <li class="list-group-item">
+      <strong>{{ p }}</strong> – {{ y }} years <br />{{ positive_msgs[p] }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h5 class="mt-4 text-primary">Constructive Growth Periods</h5>
+  <ul class="list-group">
+    {% for p, y in reframed %}
+    <li class="list-group-item">
+      <strong>{{ p }}</strong> – {{ y }} years <br />{{ reframe_msgs[p] }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h4>Kerala Porutham Results</h4>
+  <table class="table table-bordered">
+    <tr>
+      <th>Porutham</th>
+      <th>Status</th>
+    </tr>
+    {% for k, v in result.items() %}
+    <tr>
+      <td>{{ k }}</td>
+      <td class="{{ 'text-success' if v else 'text-danger' }}">
+        {{ "PASS" if v else "FAIL" }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

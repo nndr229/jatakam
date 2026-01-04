@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h4>Generate Jātakam</h4>
+  <form method="POST" action="/jataka">
+    <input class="form-control mb-2" name="name" placeholder="Name" />
+    <input
+      class="form-control mb-2"
+      name="moon"
+      placeholder="Moon Longitude (°)"
+    />
+    <button class="btn btn-success">Generate</button>
+  </form>
+
+  <hr />
+
+  <h4>Kuṇḍali Matching</h4>
+  <form method="POST" action="/match">
+    <input
+      class="form-control mb-2"
+      name="boy_moon"
+      placeholder="Boy Moon Longitude (°)"
+    />
+    <input
+      class="form-control mb-2"
+      name="girl_moon"
+      placeholder="Girl Moon Longitude (°)"
+    />
+    <button class="btn btn-primary">Match</button>
+  </form>
+</div>
+{% endblock %}
