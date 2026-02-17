@@ -5,6 +5,10 @@
     <div class="text-center">
         <h2>Vedic Astrology Report for {{ data.name }}</h2>
         <p class="lead">Born: {{ data.datetime }} | Location: {{ data.location }}</p>
+        <div class="alert alert-info">
+            <strong>Janma Nakshatra:</strong> {{ data.jataka.nakshatra }} ({{ data.jataka.nakshatra_no }})<br>
+            <strong>Janma Rasi:</strong> {{ data.jataka.janma_rasi }}
+        </div>
     </div>
 
     <!-- Planetary Positions -->

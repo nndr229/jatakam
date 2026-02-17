@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from .jatakam.calculator import Calculator
-from .jatakam.report import generate_pdf
+from .astrology.jataka import generate_jataka
+from .astrology.dasha import get_dasha_details # if it exists
 from datetime import datetime
 import io
 
@@ -17,11 +18,26 @@ def index():
         lat = float(request.form['lat'])
         lon = float(request.form['lon'])
         
-        # Calculate
+        # 1. Calculate Planetary Positions (using Swiss Ephemeris)
         dt = datetime.strptime(f"{dob} {tob}", "%Y-%m-%d %H:%M")
         planets = calc.calculate_planets(dt, lat, lon)
+        
+        # 2. Get Moon Longitude
+        moon_longitude = planets['Moon']['longitude']
+        
+        # 3. Calculate Jatakam (Nakshatra, Rasi) using ORIGINAL logic
+        jataka_data = generate_jataka(name, moon_longitude)
+        
+        # 4. Generate Additional Charts (D1, D9)
         charts = calc.get_divisional_charts(planets)
-        dashas = calc.get_dasha_details(planets['Moon']['longitude'], dt)
+        
+        # 5. Get Dasha (if logic exists in original code or new code)
+        # Try original dasha logic if available, else fallback
+        try:
+             from .astrology.dasha import get_dasha_details
+             dashas = get_dasha_details(moon_longitude, dt)
+        except ImportError:
+             dashas = calc.get_dasha_details(moon_longitude, dt)
         
         # Generate Report Data
         report_data = {
@@ -30,7 +46,8 @@ def index():
             'location': f"{lat}, {lon}",
             'planets': planets,
             'charts': charts,
-            'dashas': dashas
+            'dashas': dashas,
+            'jataka': jataka_data # Original Nakshatra/Rasi data
         }
         
         return render_template('report.html', data=report_data)
