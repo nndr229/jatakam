@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center">
+        <h2>Vedic Astrology Report for {{ data.name }}</h2>
+        <p class="lead">Born: {{ data.datetime }} | Location: {{ data.location }}</p>
+    </div>
+
+    <!-- Planetary Positions -->
+    <div class="card my-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Planetary Positions</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Rasi (Sign)</th>
+                        <th>Longitude</th>
+                        <th>Retrograde</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for planet, details in data.planets.items() %}
+                    <tr>
+                        <td>{{ planet }}</td>
+                        <td>{{ details.rasi }}</td>
+                        <td>{{ details.display }}</td>
+                        <td>{% if details.retrograde %}Yes{% else %}No{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- D1 Chart (Rasi) -->
+    <div class="card my-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Divisional Charts</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>D1 - Rasi Chart</h5>
+                    <!-- Placeholder for Chart Generation -->
+                    <div class="chart-container" style="border: 1px solid #ccc; height: 300px; position: relative;">
+                        <!-- Simple SVG Rendering Logic Here if Needed -->
+                        <svg width="100%" height="100%" viewBox="0 0 400 400">
+                            <!-- Draw South Indian Chart frame -->
+                            <rect x="0" y="0" width="400" height="400" fill="none" stroke="black" stroke-width="2"/>
+                            <line x1="100" y1="0" x2="100" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="200" y1="0" x2="200" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="300" y1="0" x2="300" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="100" x2="400" y2="100" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="200" x2="400" y2="200" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="300" x2="400" y2="300" stroke="black" stroke-width="1"/>
+                            <!-- Logic to place planets would go here via JS or Server-side rendering -->
+                            <text x="200" y="200" text-anchor="middle" dominant-baseline="middle" font-size="20">D1 Chart</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>D9 - Navamsa Chart</h5>
+                    <div class="chart-container" style="border: 1px solid #ccc; height: 300px;">
+                        <svg width="100%" height="100%" viewBox="0 0 400 400">
+                            <rect x="0" y="0" width="400" height="400" fill="none" stroke="black" stroke-width="2"/>
+                            <!-- Add grid lines -->
+                             <line x1="100" y1="0" x2="100" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="200" y1="0" x2="200" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="300" y1="0" x2="300" y2="400" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="100" x2="400" y2="100" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="200" x2="400" y2="200" stroke="black" stroke-width="1"/>
+                            <line x1="0" y1="300" x2="400" y2="300" stroke="black" stroke-width="1"/>
+                             <text x="200" y="200" text-anchor="middle" dominant-baseline="middle" font-size="20">D9 Chart</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center my-4">
+        <form action="/download_pdf" method="POST">
+             <!-- Hidden inputs to regenerate or pass ID -->
+             <button type="submit" class="btn btn-warning btn-lg">Download Full PDF Report</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

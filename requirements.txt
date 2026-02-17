@@ -1,0 +1,8 @@
+flask
+pyswisseph
+pytz
+jinja2
+requests
+geopy
+weasyprint
+reportlab
